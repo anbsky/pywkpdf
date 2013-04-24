@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pywkpdf',
-    version='0.1dev',
+    version='1.0',
     packages=['pywkpdf',],
     package_data={'pywkpdf': [
         'bin/wkhtmltopdf-linux',
@@ -14,6 +14,6 @@ setup(
         'bin/wkhtmltopdf.app/Contents/Resources/qt_menu.nib/keyedobjects.nib',
     ]},
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
     # test_suite='nose2.collector.collector',
 )
