@@ -6,4 +6,5 @@ setup(
     packages=['pywkpdf',],
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.txt').read(),
+    # test_suite='nose2.collector.collector',
 )
