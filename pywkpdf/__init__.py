@@ -71,12 +71,13 @@ def get_options(in_file, out_file, **kwargs):
     return options
 
 
-def html_to_pdf(html, **kwargs):
-    html_file = NamedTemporaryFile(delete=True, suffix='.html')
+def html_to_pdf(html, delete_html=True, **kwargs):
+    html_file = NamedTemporaryFile(delete=delete_html, suffix='.html')
     html_file.write(html.encode('utf-8'))
     html_file.flush()
 
     source = html_file.name
+    print source
 
     pdf_file = NamedTemporaryFile(delete=True, suffix='.pdf')
 
