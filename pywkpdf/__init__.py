@@ -77,7 +77,6 @@ def html_to_pdf(html, delete_html=True, **kwargs):
     html_file.flush()
 
     source = html_file.name
-    print source
 
     pdf_file = NamedTemporaryFile(delete=True, suffix='.pdf')
 
