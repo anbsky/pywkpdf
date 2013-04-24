@@ -7,7 +7,9 @@ from django.conf import settings
 from . import html_to_pdf, html_to_pdf_file
 
 
-def render_to_pdf(template_name, dictionary=None, context_instance=None):
+def render_to_pdf(template_name, dictionary=None,
+                  context_instance=None, convert_args=None):
+    convert_args = convert_args or {}
     new_dictionary = {
         'STATIC_URL': settings.STATIC_URL,
         'PROJECT_PATH': settings.PROJECT_PATH
@@ -15,10 +17,12 @@ def render_to_pdf(template_name, dictionary=None, context_instance=None):
     new_dictionary.update(dictionary)
     result = render_to_string(template_name, new_dictionary, context_instance)
 
-    return html_to_pdf(result)
+    return html_to_pdf(result, **convert_args)
 
 
-def render_to_file(template_name, file_name, dictionary=None, context_instance=None):
+def render_to_file(template_name, file_name, dictionary=None,
+                   context_instance=None, convert_args=None):
+    convert_args = convert_args or {}
     new_dictionary = {
         'STATIC_URL': settings.STATIC_URL,
         'PROJECT_PATH': settings.PROJECT_PATH
@@ -26,7 +30,7 @@ def render_to_file(template_name, file_name, dictionary=None, context_instance=N
     new_dictionary.update(dictionary)
     result = render_to_string(template_name, new_dictionary, context_instance)
 
-    return html_to_pdf_file(result, file_name)
+    return html_to_pdf_file(result, file_name, **convert_args)
 
 
 class PDFTemplate(Template):
