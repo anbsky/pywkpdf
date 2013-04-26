@@ -24,8 +24,8 @@ def render_to_file(template_name, file_name, dictionary=None,
     return html_to_pdf_file(html, file_name, **convert_args)
 
 
-def render_to_response(request, template_name, file_name=None,
-                       dictionary=None, convert_args=None):
+def render_to_response(request, template_name, dictionary=None,
+                       file_name=None, convert_args=None):
     pdf_file = render_to_pdf(
         template_name, dictionary, RequestContext(request), convert_args)
     file_name = file_name or path.basename(pdf_file.name)
@@ -47,5 +47,6 @@ def _render_template(template_name, dictionary, context_instance):
         'STATIC_URL': settings.STATIC_ROOT,
         'PROJECT_PATH': settings.PROJECT_PATH
     }
-    new_dictionary.update(dictionary)
+    if dictionary:
+        new_dictionary.update(dictionary)
     return render_to_string(template_name, new_dictionary, context_instance)
