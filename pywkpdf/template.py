@@ -10,7 +10,7 @@ from wsgiref.util import FileWrapper
 
 from . import html_to_pdf, html_to_pdf_file
 
-log = logging.getLogger()
+log = logging.getLogger('pywkpdf')
 
 
 def render_to_pdf(template_name, dictionary=None,
@@ -31,8 +31,10 @@ def render_to_response(request, template_name, dictionary=None,
                        file_name=None, convert_args=None):
     pdf_file = render_to_pdf(
         template_name, dictionary, RequestContext(request), convert_args)
+    pdf_size = path.getsize(pdf_file.name)
+
     log.debug('generated a PDF file, location: %s, size: %s',
-              pdf_file.name, pdf_file.tell())
+              pdf_file.name, pdf_size)
 
     response = HttpResponse(FileWrapper(pdf_file), content_type='application/pdf')
     if file_name:
@@ -40,7 +42,7 @@ def render_to_response(request, template_name, dictionary=None,
             file_name)
     else:
         response['Content-Disposition'] = 'attachment'
-    response['Content-Length'] = pdf_file.tell()
+    response['Content-Length'] = pdf_size
     pdf_file.seek(0)
 
     return response
