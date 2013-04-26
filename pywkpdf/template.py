@@ -28,7 +28,6 @@ def render_to_response(request, template_name, dictionary=None,
                        file_name=None, convert_args=None):
     pdf_file = render_to_pdf(
         template_name, dictionary, RequestContext(request), convert_args)
-    file_name = file_name or path.basename(pdf_file.name)
 
     response = HttpResponse(FileWrapper(pdf_file), content_type='application/pdf')
     if file_name:
