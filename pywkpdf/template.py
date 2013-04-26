@@ -1,6 +1,7 @@
 # encoding=utf-8
 
 from os import path
+import logging
 from django.http import HttpResponse
 from django.template import Template, Context, RequestContext
 from django.template.loader import select_template, get_template, render_to_string
@@ -8,6 +9,8 @@ from django.conf import settings
 from wsgiref.util import FileWrapper
 
 from . import html_to_pdf, html_to_pdf_file
+
+log = logging.getLogger()
 
 
 def render_to_pdf(template_name, dictionary=None,
@@ -28,6 +31,8 @@ def render_to_response(request, template_name, dictionary=None,
                        file_name=None, convert_args=None):
     pdf_file = render_to_pdf(
         template_name, dictionary, RequestContext(request), convert_args)
+    log.debug('generated a PDF file, location: %s, size: %s',
+              pdf_file.name, pdf_file.tell())
 
     response = HttpResponse(FileWrapper(pdf_file), content_type='application/pdf')
     if file_name:
