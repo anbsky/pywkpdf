@@ -5,28 +5,29 @@ from subprocess import call
 from tempfile import NamedTemporaryFile
 
 
-wkhtmltopdf_binaries = {
-    'Darwin': (os.path.abspath(os.path.split(__file__)[0]) +
-        '/bin/wkhtmltopdf.app/Contents/MacOS/wkhtmltopdf'),
-    'Linux': (os.path.abspath(os.path.split(__file__)[0]) +
-        '/bin/wkhtmltopdf-linux'),
-}
-wkhtmltopdf_binaries.update({
-    'Darwin/x86_64': wkhtmltopdf_binaries['Darwin'],
-    'Linux/x86_64': wkhtmltopdf_binaries['Linux'],
-    'Linux/i386': wkhtmltopdf_binaries['Linux'],
-    'Linux/i686': wkhtmltopdf_binaries['Linux'],
-})
+# wkhtmltopdf_binaries = {
+#     'Darwin': (os.path.abspath(os.path.split(__file__)[0]) +
+#         '/bin/wkhtmltopdf.app/Contents/MacOS/wkhtmltopdf'),
+#     'Linux': (os.path.abspath(os.path.split(__file__)[0]) +
+#         '/bin/wkhtmltopdf-linux'),
+# }
+# wkhtmltopdf_binaries.update({
+#     'Darwin/x86_64': wkhtmltopdf_binaries['Darwin'],
+#     'Linux/x86_64': wkhtmltopdf_binaries['Linux'],
+#     'Linux/i386': wkhtmltopdf_binaries['Linux'],
+#     'Linux/i686': wkhtmltopdf_binaries['Linux'],
+# })
+#
+# platform_type = '/'.join([platform.system(), platform.machine()])
 
-platform_type = '/'.join([platform.system(), platform.machine()])
+# try:
+#     wkhtmltopdf_cmd = wkhtmltopdf_binaries[platform_type]
+# except KeyError:
+#     raise Exception(
+#         'Cannot find wkhtmltopdf binary for your platform ({})'.format(platform_type))
 
-try:
-    wkhtmltopdf_cmd = wkhtmltopdf_binaries[platform_type]
-except KeyError:
-    raise Exception(
-        'Cannot find wkhtmltopdf binary for your platform ({})'.format(platform_type))
+wkhtmltopdf_cmd = 'wkhtmltopdf'
 
-os.chmod(wkhtmltopdf_cmd, 0755)
 
 binary_options = {
     'low_quality': '-l',
